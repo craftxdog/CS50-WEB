@@ -1,41 +1,35 @@
 {% extends "auctions/layout.html" %}
-
 {% block body %}
-<form action="{% url 'createListing' %}" method="POST">
-  {% csrf_token %}
-  <div class="form-group">
-    <label for="title">Enter Title</label>
-    <input type="text" class="form-control" id="title" placeholder="Enter Title" required="" maxlength="50" name="title">
-  </div>
-  <div class="form-group">
-    <label for="description">Enter Description</label>
-    <textarea class="form-control" name="description" id="description" cols="4" rows="5" maxlength="500"></textarea>
-  </div>
-  <div class="form-group custom-control-inline">
+  <form action="{% url 'createListing' %}" method="POST">
+    {% csrf_token %}
     <div class="form-group">
-      <label for="price">Enter Price</label>
-      <input type="number" class="form-control" id="price" placeholder="Enter Price" required="" min="0" name="price">
-    </div>
-    <div class="form-group">
-      <label for="category">Enter Category</label>
-      <select class="form-control" name="category" required>
-        <option selected>Categories</option>
-        {% for Cat in categories %}
-        <option value="{{Cat}}">{{Cat}}</option>
-        {% endfor %}
-      </select>
+      <label for="title">Enter Title</label>
+      <input type="text" class="form-control" id="title" placeholder="Enter Title" required="" maxlength="50" name="title"></div>
+      <div class="form-group">
+        <label for="description">Enter Description</label>
+        <textarea class="form-control" name="description" id="description" cols="4" rows="5" maxlength="500"></textarea>
+      </div>
+      <div class="form-group custom-control-inline">
+        <div class="form-group">
+          <label for="price">Enter Price</label>
+          <input type="number" class="form-control" id="price" placeholder="Enter Price" required="" min="0" name="price"></div>
+          <div class="form-group">
+            <label for="category">Enter Category</label>
+            <select class="form-control" name="category" required>
+              <option selected>Categories</option>
+              {% for Cat in categories %}
+                <option value="{{ Cat }}">{{ Cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="image">Enter Image</label>
+            <input type="text" class="form-control" id="image" name="image"></div>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary form-group">Create Listing</button>
+          </div>
 
-    </div>
-    <div class="form-group">
-      <label for="image">Enter Image</label>
-      <input type="text" class="form-control" id="image" name="image">
-    </div>
+        </form>
 
-  </div>
-  <div>
-    <button type="submit" class="btn btn-primary form-group">Create Listing</button>
-  </div>
-  
-</form>
-
-{% endblock %}
+      {% endblock %}
