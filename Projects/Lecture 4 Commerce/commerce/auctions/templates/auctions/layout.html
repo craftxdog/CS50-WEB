@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Auctions{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <a href="{% url 'index' %}"
+                class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+                </svg>
+            </a>
+            <div class="col-md-3 text-left">
+                <h5>{{title}}</h5>
+            </div>
+            {% if user.is_authenticated %}
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'createListing' %}" class="nav-link px-2 link-secondary">Create Listing</a></li>
+                <li><a href="{% url 'displayWatchList' %}" class="nav-link px-2 link-secondary">Watch List</a></li>
+            </ul>
+            <div class="col-md-3 text-end">
+                <a href="{% url 'logout' %}">
+                    <button type="button" class="btn btn-primary">Log Out</button>
+                </a>
+
+            </div>
+            {% else %}
+            <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+            <div class="col-md-3 text-end">
+                <a href="{% url 'login' %}">
+                    <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                </a>
+                <a href="{% url 'register' %}">
+                    <button type="button" class="btn btn-primary">Sign-up</button>
+                </a>
+            </div>
+            {% endif %}
+        </header>
+        {% block body %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>
