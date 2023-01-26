@@ -1,3 +1,117 @@
 body {
     padding: 10px;
 }
+p {
+    font-family: sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+#close-Auction, #remove-Watch, #add-Watch {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+}
+.ds-pha {
+    padding: 8px;
+    margin: 25px;
+}
+
+.img-fluid{
+    width: 250px; 
+    height: 300px;
+}
+.ds-pha .iz-img{
+    float: left;
+    margin-right: 500px;
+}
+#img-ind{
+    height: 259px; 
+    width: 180px;
+}
+.frm-listing{
+    margin-right: 50px;
+}
+#btn-sussForm{
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+}
+.auth-wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-width: 100%;
+    min-height: 100vh;
+    background: #1abc9c;
+    background-image: url(https://miro.medium.com/max/720/1*oVzDjN7eCObQsmkRZpHEVQ.webp);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+.auth-wrapper .auth-content:not(.container) {
+    width: 400px;
+}
+
+.auth-wrapper .auth-content {
+    position: relative;
+    padding: 15px;
+    z-index: 5;
+}
+.auth-wrapper .card-auth {
+    margin-bottom: 0;
+    padding: 8px;
+    border-radius: 8px;
+}
+.card-auth.borderless {
+    border-top: none;
+}
+.card-auth {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid rgba(0, 0, 0, 0.125);
+    border-radius: 2px;
+}
+.text-center {
+    text-align: center ;
+}
+.align-items-center {
+    align-items: center !important;
+}
+.row-auth {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.f-w-400 {
+    font-weight: 400;
+}
+h4 {
+    font-size: 24px;
+    color: #37474f;
+}
+.auth-wrapper-in{
+    background-image: url(https://cs50.harvard.edu/extension/2022/fall/notes/2/cs50Week2Slide070.png);
+}

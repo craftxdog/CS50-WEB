@@ -1,115 +1,111 @@
-{% extends "auctions/layout.html" %} {%block body%}
-{% if message %}
-{% if updated %}
-<div class="alert alert-primary d-flex align-items-center" role="alert">
-  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
-    <use xlink:href="#info-fill" />
-  </svg>
-  <div>
-    {{ message }}!
-  </div>
-</div>
-{% else %}
-<div class="alert alert-danger" role="alert">
-  {{ message }}!
-</div>
-{% endif %}
-{% endif %}
-{% if not listing.isActive and user == listing.price.user %}
-<div class="alert alert-primary d-flex align-items-center" role="alert">
-  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
-    <use xlink:href="#info-fill" />
-  </svg>
-  <div>
-    Congratulations!! You won the Auctions
-  </div>
-</div>
-{% endif %}
-
-
-
-
-<div class="row">
-  {% if user.is_authenticated and listing.isActive %}
-  {% if isOwner %}
-  <form action="{% url 'closeAuction' listing_id=listing.id %}" method="POST">
-    {% csrf_token %}
-    <div class="mx-3">
-      <button type="submit" class="btn btn-outline-danger">
-        Close
-      </button>
-    </div>
-  </form>
-  {% endif %}
-  {% if isWatchList %}
-  <form action="{% url 'removeWatchList' listing_id=listing.id %}" method="POST">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-outline-danger">
-      Remove from WatchList
-    </button>
-  </form>
-  {% else %}
-  <form action="{% url 'addWatchList' listing_id=listing.id %}" method="POST">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-outline-success">
-      Add to WatchList
-    </button>
-  </form>
-  {% endif %} {% endif %}
-</div>
-
-<h2>Listing: {{listing.title}}</h2>
-<div class="mx-3">
-  <hr />
-  <img src="{{listing.imageURL}}" class="img-fluid" alt="{{listing.tile}}" style="height: 400px" />
-</div>
-<div class="container">
-  <p>{{listing.description}}</p>
-  <p>Owner: {{listing.owner}}</p>
-  <h6>Price: {{listing.price}} $</h6>
-
-  {% if user.is_authenticated %}
-  <form action="{% url 'addBid' listing_id=listing.id %}" method="POST" class="form-inline">
-    {% csrf_token %}
-    <div class="form-group custom-control-inline">
-      <div class="form-group">
-        <label for="newBid">Add Bid </label>
-        <input type="number" class="form-control" id="newBid" placeholder="Enter Price" required="" min="0"
-          name="newBid">
-      </div>
-    </div>
-    <div>
-      <button type="submit" class="btn btn-outline-success form-group">Add New Bid</button>
-    </div>
-  </form>
-  {% endif %}
-  <div>
-    {% if user.is_authenticated %}
-    <h2>Comments</h2>
-    <form action="{% url 'addComment' listing_id=listing.id %}" method="POST">
-      {% csrf_token %}
-      <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" id="comment" name="comment"
-          style="height: 100px"></textarea>
-      </div>
-      <div>
-        <button type="submit" class="btn btn-dark">Send</button>
-      </div>
-    </form>
-    {% endif %}
-  </div>
-  <div><br /></div>
-  <div>
-    <ul class="list-group">
-      {% for comments in allComments %}
-      <div class="list-group-item">
-        <li class="list-group-item">{{ comments.comment }}</li>
-        <div class="list-inline-item">
-          <h6>Posted by <strong>{{ comments.user }}</strong></h6>
+{% extends "auctions/layout.html" %}
+  {% block body %}
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>Details: <strong>{{ listing.title }}</strong> </h5>
+          </div>
+          <div class="card-body">
+            {% if message %}
+              <div id="ms-alert">
+                {% if updated %}
+                  <div class="ms-alr-up">
+                    <div class="alert alert-info" role="alert">
+                      {{ message }}
+                    </div>
+                  </div>
+                {% else %}
+                  <div class="ms-alr">
+                    <div class="alert alert-danger" role="alert">
+                      {{ message }}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if not listing.isActive and user == listing.price.user %}
+              <div class="ms-alr-won">
+                <div class="alert alert-success" role="alert">
+                  Congratulations.!! You won the auction.
+                </div>
+              </div>
+            {% endif %}
+            {% if user.is_authenticated and listing.isActive %}
+              {% if isOwner %}
+                <div id="close-Auction">
+                  <form action="{% url 'closeAuctions' listing_id=listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger form-inline">Close Auction</button>
+                  </form>
+                </div>
+              {% endif %}
+              {% if isWatchList %}
+                <div id="remove-Watch">
+                  <form action="{% url 'removeWatchList' listing_id=listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger">Remove from WatchList</button>
+                  </form>
+                </div>
+              {% else %}
+                <div id="add-Watch">
+                  <form action="{% url 'addWatchList' listing_id=listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-warning">Add to WatchList</button>
+                  </form>
+                </div>
+              {% endif %}
+            {% endif %}
+            <hr>
+            <div class="row">
+              <div class="col-md-6">
+                <img src="{{ listing.image }} " alt=" {{ listing.title }" class="img-fluid">
+              </div>
+              <div class="col-md-6">
+                <aside> {{ listing.description }} </aside>
+                <hr>
+                <h5>Price: <strong>$ {{ listing.price }} </strong></h5>
+                <p><h6>Owner: <strong> {{ listing.owner }} </strong> </h6></p>
+                <div class="col-md-6">
+                  {% if user.is_authenticated %}
+                    <form action=" {% url 'addBid' listing_id=listing.id %} " method="POST">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <input type="number" class="form-control" id="newBid" name="newBid" min="0.0" placeholder="New Bid" required>
+                      </div>
+                      <button type="submit" class="btn btn-outline-success">Add Bid</button>
+                    </form>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <hr>
+                {% if user.is_authenticated %}
+                  <h5>Add Comments: </h5>
+                  <form action=" {% url 'addComment' listing_id=listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <textarea name="comment" id="comment" class="form-control" rows="4" placeholder="Leave a Comment here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-info">Add Comment</button>
+                  </form>
+                {% endif %}
+              </div>
+              <div class="col-md-6">
+                <hr>
+                <h5> Comments: </h5>
+                <ul class="list-group">
+                  {% for comment in allComments %}
+                    <div class="list-group-item mb-3">
+                      <li class="list-group-item"> {{ comment.comment }} </li>
+                      <div class="list-inline-item">
+                        <h6>Posted by <strong> {{ comment.user }} </strong></h6>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-{%endblock%}
+  {% endblock %}
